@@ -4,7 +4,7 @@ import pandasql as ps
 import pandas as pd
 import numpy as np
 
-df = pd.read_csv('./sales_data_sample.csv',encoding="ansi")
+df = pd.read_csv('./sales_data_sample.csv',encoding='utf-8')
 
 col1, col2, col3 = st.columns(3)
 
