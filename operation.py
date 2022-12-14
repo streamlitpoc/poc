@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import  numpy as np
 
 def operation_dashboard(source_data):
-    df = pd.read_csv(source_data,encoding="ansi")
+    df = pd.read_csv(source_data,encoding= 'unicode_escape')
     year_df = ps.sqldf("select distinct substring(start_date_time,0,5) as year from df")
     year_list = year_df['year'].values. tolist()
     year = st.sidebar.selectbox('YEAR',year_list)
