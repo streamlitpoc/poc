@@ -1,0 +1,6 @@
+job_config_id,source_nm,source_schema_nm,source_object_name,target_nm,target_schema_nm,target_object_nm,job_nm,service_type_nm,job_type_nm,load_type,status,pipeline_run_id,previous_execution_id,previous_job_status,start_dt,start_date_time,end_date_time,execution_id,job_runner_status,error_desc
+93,ABC,ABC,ABC,ABC,finance,ABC,ABC,Redshift SP,Delta.io,FullLoad,1,,,SUCCEEDED,34:24.4,29:16.0,29:27.0,ABC,success,
+53,ABC,ABC,ABC,ABC,infinium_edl,ABC,ABC,Lambda,refresh ext table,Incremental,1,,,,,49:02.4,49:02.4,ABC,success,
+54,ABC,ABC,ABC,ABC,infinium_edl,ABC,ABC,Lambda,refresh ext table,Incremental,1,,,,,49:07.5,49:07.5,ABC,success,
+56,ABC,ABC,ABC,ABC,infinium_edl,ABC,ABC,Lambda,refresh ext table,Incremental,1,,,,,49:37.8,49:37.8,ABC,success,
+55,ABC,ABC,ABC,ABC,infinium_edl,ABC,ABC,Lambda,refresh ext table,Incremental,1,,,,,49:40.5,49:40.5,ABC,success,
