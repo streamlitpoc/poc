@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 
 def sales(source_data):
-    df = pd.read_csv(source_data,encoding="ansi")
+    df = pd.read_csv(source_data,encoding="unicode_escape")
 
     col1, col2, col3 = st.columns(3)
 
