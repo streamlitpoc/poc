@@ -21,7 +21,7 @@ def main():
     ('Operations & Monitoring', 'Sales'))
 
     if option == 'Operations & Monitoring':
-        source_path = './operation_data.csv'
+        source_path = './operations_data.csv'
         op.operation_dashboard(source_path)
         # content = '<p style="font-family:Courier; color:Black; font-size: 20px;">This dashboard gives you insights for job monitoring in <strong>PRODUCTION</strong> enviroment. Support Engineer can you this dashboard for jobs monitoring, raising defects and fixing bugs.</p>'
         # st.sidebar.markdown (content, unsafe_allow_html=True)
