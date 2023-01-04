@@ -8,7 +8,12 @@
     "javascript.suggest.includeAutomaticOptionalChainCompletions": false,
     "debug.saveBeforeStart": "none",
     "search.exclude": {
-        "**/.vs-cache/**/gen/**": true
+        "**/gen/cache/**": true
     },
-    "search.useIgnoreFiles": false
+    "search.useIgnoreFiles": false,
+    "files.watcherExclude": {
+        "**/.vs-debug/**": true,
+        "**/.git/**": true,
+        "**/.DS_Store": true
+    }
 }
