@@ -52,7 +52,7 @@ def operation_dashboard(source_data):
     image = Image.open('./Logo.jpg')
 
     st.image(image)
-    tab1, tab2= st.tabs(["Job Status", "Ratio of Succeeded/Failed Job"])
+    tab1, tab2, tab3 = st.tabs(["Job Status", "Ratio of Succeeded/Failed Job","No.of Errors Occured for Job Failure"])
     with tab1:
                 if option == 'YEAR':
                         job_status_count = ps.sqldf("select job_runner_status, count(*) as cnt from df where substring(start_date_time,0,5) = '"+year+"' group by job_runner_status")
@@ -101,4 +101,24 @@ def operation_dashboard(source_data):
 
                 fig2 = plt.gcf()
                 st.pyplot(fig2)
+    with tab3:
+            if option == 'YEAR':
+                        df1 =ps.sqldf("select job_nm, count(*) as cnt from df where job_runner_status = 'failure' and substring(start_date_time,0,5) = '"+year+"' group by job_nm order by count(*) desc limit 10")
+            elif option == 'MONTH':
+                        df1 =ps.sqldf("select job_nm, count(*) as cnt from df where job_runner_status = 'failure' and substring(start_date_time,0,5) = '"+year+"' and substring(start_date_time,6,2) = '"+month+"' group by job_nm order by count(*) desc limit 10")
+            else:         
+                        df1 =ps.sqldf("select job_nm, count(*) as cnt from df where job_runner_status = 'failure' and substring(start_date_time,0,5) = '"+year+"' and substring(start_date_time,6,2) = '"+month+"' and substring(start_date_time,9,2) = '"+day+"'group by job_nm order by count(*) desc limit 10")
+            x = df1.job_nm.to_list()
+            y = df1.cnt.to_list()
+            fig3, ax = plt.subplots()   
+            width = 0.5 # the width of the bars 
+            ind = np.arange(len(y))  # the x locations for the groups
+            ax.barh(ind, y, width, color="blue")
+            ax.set_yticks(ind+width/2)
+            ax.set_yticklabels(x, minor=False)
+            bars = ax.barh(ind, y)
+            ax.bar_label(bars)
+            #plt_2 = plt.figure(figsize=(2, 4))
+            fig3 = plt.gcf()
+            st.pyplot(fig3)
 
