@@ -97,7 +97,7 @@ def operation_dashboard(source_data):
                     # custom label calculates percent and add an empty string so 0 value bars don't have a number
                     labels = [f'{w:0.2f}%' if (w := v.get_width()) > 5 else '' for v in c]               
                     # add annotations
-                    ax.bar_label(c, labels=labels, label_type='center', padding=0.3, color='b')
+                    ax.bar_label(c, labels=labels, label_type='center', padding=0.3, color='w')
 
                 fig2 = plt.gcf()
                 st.pyplot(fig2)
