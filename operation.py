@@ -93,11 +93,11 @@ def operation_dashboard(source_data):
                 ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.05), ncol=2, frameon=False)
                 ax.tick_params(left=False, bottom=False)
                 ax.spines[['top', 'bottom', 'left', 'right']].set_visible(False)
-                # for c in ax.containers:  
-                #     # custom label calculates percent and add an empty string so 0 value bars don't have a number
-                #     labels = [f'{w:0.2f}%' if (w := v.get_width()) > 0 else '' for v in c]               
-                #     # add annotations
-                #     ax.bar_label(c, labels=labels, label_type='center', padding=0.3, color='b')
+                for c in ax.containers:  
+                    # custom label calculates percent and add an empty string so 0 value bars don't have a number
+                    labels = [f'{w:0.2f}%' if (w := v.get_width()) > 5 else '' for v in c]               
+                    # add annotations
+                    ax.bar_label(c, labels=labels, label_type='center', padding=0.3, color='b')
 
                 fig2 = plt.gcf()
                 st.pyplot(fig2)
