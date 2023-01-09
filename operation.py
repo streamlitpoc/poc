@@ -20,7 +20,7 @@ def operation_dashboard(source_data):
     unsafe_allow_html=True
         )
     df = pd.read_csv(source_data,encoding="utf-8")
-    df = ps.sqldf("select * from df where substring(start_date_time,0,8) in ('2022-12')")
+    df = ps.sqldf("select * from df where substring(start_date_time,0,8) in ('2022-11','2022-12')")
     option = st.sidebar.selectbox('END DATE TIME',('YEAR', 'MONTH', 'DAY'))
     if option == 'YEAR':
         year_df = ps.sqldf("select distinct substring(start_date_time,0,5) as year from df")
