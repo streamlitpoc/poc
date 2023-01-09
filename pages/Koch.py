@@ -52,4 +52,3 @@ with st.form("Employee Details"):
        st.write("Thank You",name,",we are processing your request with employee id-",employee_id,".")
        st.write("We will get back to you shortly!")
        st.success('Success!')
-

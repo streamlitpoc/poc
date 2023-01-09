@@ -4,7 +4,7 @@ import numpy as np
 import pandasql as ps
 from PIL import Image
 
-
+st.write('<p style = "color:red">Roses are red</p><p style = "color:blue">Violets are blue!</p>', unsafe_allow_html=True)
 st.title('Streamlit Demo')
 
 st.write('Select a company')
