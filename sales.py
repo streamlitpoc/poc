@@ -3,62 +3,81 @@ import pandas as pd
 import pandasql as ps
 import pandas as pd
 import numpy as np
+# data visualization
+import pandas as pd
+import pandasql as ps
+import matplotlib.pyplot as plt
+import seaborn as sns
+import plotly.express as px
+plt.style.use('fast')
 
-def sales(source_data):
-    df = pd.read_csv(source_data,encoding="unicode_escape")
+
+def form_callback(df,country_selected,year_selected):
+
+    st.header("Dashboard")
+
+    sales_query = "select sum(sales) as totalsales from df where country = '"+country_selected+"' and year_id ='"+str(year_selected)+"'"
+
+    count_sales_query = "select count(sales) as totalorders from df where country = '"+country_selected+"' and year_id ='"+str(year_selected)+"'"
+
+    product_query = "select count(distinct PRODUCTCODE) as totalproducts  from df where country = '"+country_selected+"' and year_id ='"+str(year_selected)+"'"
 
     col1, col2, col3 = st.columns(3)
-
+    
     with col1:
-        expander = st.expander("Today's sales")
-        #expander.write("_Sales Summary_")
-
-        df1 = ps.sqldf("select sum(sales) as totalsales , orderdate from df group by orderdate order by orderdate desc limit 1")
-
-        expander.write(" Total Sales : $" + str(int(df1['totalsales'][0])))
+            expander = st.expander("Total Sales :",expanded=True)
+            df1 = ps.sqldf(sales_query)
+            expander.write("$" + str(int(df1['totalsales'][0])))
 
 
     with col2:
-        expander = st.expander("Today's Orders")
-        #expander.write("_Sales Summary_")
+            expander = st.expander("Total Orders",expanded=True)
+            df1 = ps.sqldf(count_sales_query)
+            expander.write("" + str(int(df1['totalorders'][0])))
 
-        df1 = ps.sqldf("select count(sales) as totalorders from df")
-
-        expander.write(" Total Orders : " + str(int(df1['totalorders'][0])))
-
-        
+            
 
     with col3:
-        expander = st.expander("Products Sold")
-        #expander.write("_Sales Summary_")
+            expander = st.expander("Products Catogery Sold",expanded=True)
+            df1 = ps.sqldf(product_query)
+            expander.write("" + str(int(df1['totalproducts'][0])))
 
-        df1 = ps.sqldf("select count(PRODUCTCODE) as totalproducts  from df group by orderdate order by orderdate desc limit 1")
-
-        expander.write(" Products Sold : " + str(int(df1['totalproducts'][0])))
-
-    tab1, tab2, tab3, tab4 = st.tabs(["Sales Mapping by State", "Visitor's Insight", "Top Products", "Total Revenue"])
+    tab1,tab2= st.tabs(["Sales by State",'Distribution by Deal size'])
 
     with tab1:
-        df2 = pd.DataFrame(np.random.randn(1000, 2) / [50, 50] + [37.76, -122.4],columns=['lat', 'lon'])
-        st.map(df2)
+        if country_selected in ('France','Spain'):
+            st.info("State Level Information Not available")
+        else:
+        
+            state_df = ps.sqldf("select case when state is null then 'NA' else state end as STATE, sum(sales) as total_sales from df where country = '"+country_selected+"'and year_id ='"+str(year_selected)+"' group by state")
+            fig3, ax = plt.subplots()  
+            state = state_df.STATE.to_list()
+            sales = state_df.total_sales.to_list()
+            plt.rcParams['figure.figsize'] = (10, 5)
+            ax = sns.barplot(x = state, y = sales)
+            ax.set_xlabel(xlabel = 'state', fontsize = 10)
+            ax.set_ylabel(ylabel = 'total sales', fontsize = 10)
+            plt.xticks(rotation = 90)
+            fig3 = plt.gcf()
+            st.pyplot(fig3)
+    with tab2 :
+        deal_df = ps.sqldf("select dealsize, count(*) as count from df where country = '"+country_selected+"'and year_id ='"+str(year_selected)+"' group by dealsize")
+        fig4, ax = plt.subplots()  
+        deal = deal_df.DEALSIZE.to_list()
+        count = deal_df['count'].to_list()
+        plt.pie(count, labels = deal,autopct='%1.1f%%')
+        fig4 = plt.gcf()
+        st.pyplot(fig4)
+    
 
-    with tab2:
-        chart_data = pd.DataFrame(
-        np.random.randn(20, 3),
-        columns=['a', 'b', 'c'])
 
-        st.line_chart(chart_data)
-
-    with tab3:
-        chart_data = pd.DataFrame(
-        np.random.randn(20, 3),
-        columns=['a', 'b', 'c'])
-
-        st.area_chart(chart_data)
-
-    with tab4:
-        df1 = ps.sqldf("select substring(orderdate,0,9) as orderdate, sum(sales) as totalsales  from df group by orderdate order by orderdate desc limit 3")
-        df1.set_index("orderdate", inplace = True)
-        #expander.dataframe(df1)
-
-        st.bar_chart(data = df1)
+def sales(source_data):
+    df = pd.read_csv(source_data,encoding="ansi")
+    df1 = ps.sqldf("select country, count(*) as order_count from df group by country order by count(*) desc limit 5")
+    country = tuple(df1.COUNTRY.to_list())
+    country_selected = st.sidebar.radio('Select a country',country, key = "my_radiobox")
+    df1 = ps.sqldf("select distinct year_id from df")
+    year = tuple(df1.YEAR_ID.to_list())
+    year_selected = st.sidebar.selectbox('Select a year',year, key = "my_selectbox")
+    form_callback(df,country_selected,year_selected)
+    #generate = st.sidebar.button('',on_click=form_callback(df,country_selected,year_selected))
