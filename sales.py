@@ -37,7 +37,7 @@ def form_callback(df,country_selected,year_selected):
             
 
     with col3:
-            expander = st.expander("Products Catogery Sold",expanded=True)
+            expander = st.expander("Products Category Sold",expanded=True)
             df1 = ps.sqldf(product_query)
             expander.write("" + str(int(df1['totalproducts'][0])))
 
