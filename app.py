@@ -18,9 +18,14 @@ def main():
 
     option = st.sidebar.selectbox(
     'Please select a Dashboard',
-    ('Operations & Monitoring', 'Sales'))
+    ('Home','Operations & Monitoring', 'Sales'))
 
-    if option == 'Operations & Monitoring':
+    if option == 'Home':
+        original_title = '<p style="font-family:Courier; color:Black; font-size: 20px;">Welcome to <strong>STREAMLIT</strong> Demo !!!</p>'
+        st.markdown (original_title, unsafe_allow_html=True)
+        content = '<p style="font-family:Courier; color:Black; font-size: 20px;">This is a <strong>Home</strong> Page.Please select the dashboard from left hand side menu to explore more about <strong>STREAMLIT</strong></p>'
+        st.markdown (content, unsafe_allow_html=True)
+    elif option == 'Operations & Monitoring':
         source_path = './operation_data.csv'
         op.operation_dashboard(source_path)
         # content = '<p style="font-family:Courier; color:Black; font-size: 20px;">This dashboard gives you insights for job monitoring in <strong>PRODUCTION</strong> enviroment. Support Engineer can you this dashboard for jobs monitoring, raising defects and fixing bugs.</p>'
