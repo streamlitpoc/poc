@@ -32,8 +32,8 @@ def main():
         # st.sidebar.markdown (content, unsafe_allow_html=True)
     else:
         source_path = './sales_data_sample.csv'
-        content = '<p style="font-family:Courier; color:Black; font-size: 20px;">This dashboard gives you insights for <strong>Sales</strong>.User can find different insights related to daily sales, visitor traffic, total revenue and lot more ..</p>'
-        st.sidebar.markdown (content, unsafe_allow_html=True)
+#         content = '<p style="font-family:Courier; color:Black; font-size: 20px;">This dashboard gives you insights for <strong>Sales</strong>.User can find different insights related to daily sales, visitor traffic, total revenue and lot more ..</p>'
+#         st.sidebar.markdown (content, unsafe_allow_html=True)
         sa.sales(source_path)
 
         
