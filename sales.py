@@ -8,7 +8,6 @@ import pandas as pd
 import pandasql as ps
 import matplotlib.pyplot as plt
 import seaborn as sns
-import plotly.express as px
 plt.style.use('fast')
 
 
