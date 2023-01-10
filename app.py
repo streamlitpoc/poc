@@ -13,8 +13,8 @@ def main():
     ''',
     unsafe_allow_html=True
     )
-    original_title = '<p style="font-family:Courier; color:Black; font-size: 20px;">Welcome to <strong>STREAMLIT</strong> Demo !!!</p>'
-    st.sidebar.markdown (original_title, unsafe_allow_html=True)
+#     original_title = '<p style="font-family:Courier; color:Black; font-size: 20px;">Welcome to <strong>STREAMLIT</strong> Demo !!!</p>'
+#     st.sidebar.markdown (original_title, unsafe_allow_html=True)
 
     option = st.sidebar.selectbox(
     'Please select a Dashboard',
