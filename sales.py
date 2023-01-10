@@ -71,7 +71,7 @@ def form_callback(df,country_selected,year_selected):
 
 
 def sales(source_data):
-    df = pd.read_csv(source_data)
+    df = pd.read_csv(source_data,encoding="utf-8")
     df1 = ps.sqldf("select country, count(*) as order_count from df group by country order by count(*) desc limit 5")
     country = tuple(df1.COUNTRY.to_list())
     country_selected = st.sidebar.radio('Select a country',country, key = "my_radiobox")
